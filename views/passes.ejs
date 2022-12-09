@@ -1,0 +1,42 @@
+<div class="pass-container">
+    <br><br>
+    <h1>Alumni Meet Cum Winter Carnival Passes</h1>
+    <br><br>
+    <% for (i in passes){ %>
+    <div class="pass-each" onclick="passClick('<%= passes[i].Number %> ')">
+        <p class="name">&nbsp;&nbsp;&nbsp;<%= passes[i].Name %></p>
+    </div>
+    <% } %>
+    <script>
+        function passClick(id) {
+            id = btoa(id)
+            //open in new tab
+            window.open('/pass/' + id, '_blank');
+        }
+    </script>
+</div>
+
+<style>
+    .name {
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    .pass-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pass-each {
+        width: 90%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f1f1f1;
+        border: 1px solid #000;
+        margin: 10px 0;
+        padding: 10px;
+    }
+</style>
