@@ -20,6 +20,8 @@
   "homepage": "https://github.com/TnkrPoint/alumni-meet-software#readme",
   "dependencies": {
     "atob": "^2.1.2",
+    "body-parser": "^1.20.1",
+    "cookie-parser": "^1.4.6",
     "csvtojson": "^2.0.10",
     "ejs": "^3.1.8",
     "express": "^4.18.2",

@@ -6,6 +6,14 @@ const ejs = require('ejs');
 var expressLayouts = require('express-ejs-layouts');
 var html_to_pdf = require('html-pdf-node');
 let options = { format: 'A5', landscape: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] };
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+
+app.use(bodyParser.json());
+app.use(cookieParser())
+
+//serve public
+app.use(express.static('public'));
 
 //use ejs
 app.set('view engine', 'ejs');
@@ -39,15 +47,37 @@ app.get('/pass/:id', async (req, res) => {
             })
         })
     });
-    
+
 })
 
-//make a endpoint for new people to register
-app.post('/register', (req, res) => {
-    res.send('Hello World!');
-});
+// //make a endpoint for new people to register
+// app.post('/register', (req, res) => {
+//     res.send('Hello World!');
+// });
 
 //admin endpoint
+app.get('/admin', (req, res) => {
+    if (req.hasOwnProperty('cookies') && req.cookies.login != undefined && req.cookies.login == "verysecurelyloggedinandthisisarandomstringnow142138512433442") {
+        res.render('admin');
+    } else {
+        res.render('adminLogin');
+    }
+})
+
+//dummy login
+app.post('/auth/login', (req, res) => {
+    console.log(req.body);
+    var {email, password} = req.body;
+    if(email == "hello.world@aayushgarg.net" && password == "HeyThereComplexxWorld@SecurePass"){
+        res.cookie("login", "verysecurelyloggedinandthisisarandomstringnow142138512433442", { maxAge: 1000 * 60 * 60 * 24 * 7 }).send({ sucess: true, msg: "Logged in"});
+    }else {
+        res.send({ sucess: false, msg: "Wrong Password" })
+    }
+})
+
+app.get('/auth/logout', (req, res) => {
+    res.clearCookie("login").send({ sucess: true, msg: "Logged out"});
+})
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
