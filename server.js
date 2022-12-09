@@ -25,7 +25,7 @@ app.get('/', async (req, res) => {
 // }
 
 app.get('/pass/:id', async (req, res) => {
-    var decodedNum = atob(req.params.id).trim();
+    var decodedNum = Buffer.from(req.params.id, "base64").toString().trim();
     csv().fromFile('./alum.csv').then(async (jsonObj) => {
         var pass = await jsonObj.find(pass => {
             return pass.Number == decodedNum
