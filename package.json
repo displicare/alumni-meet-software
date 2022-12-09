@@ -27,5 +27,8 @@
     "nodemailer": "^6.8.0",
     "puppeteer": "^19.4.0",
     "qrcode": "^1.5.1"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
