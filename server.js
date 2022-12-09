@@ -68,11 +68,15 @@ app.get('/admin', (req, res) => {
 app.post('/auth/login', (req, res) => {
     console.log(req.body);
     var {email, password} = req.body;
-    if(email == "hello.world@aayushgarg.net" && password == "HeyThereComplexxWorld@SecurePass"){
+    if(email == "hello.world@aisg46.net" && password == "HeyThereComplexxWorld@SecurePass"){
         res.cookie("login", "verysecurelyloggedinandthisisarandomstringnow142138512433442", { maxAge: 1000 * 60 * 60 * 24 * 7 }).send({ sucess: true, msg: "Logged in"});
     }else {
         res.send({ sucess: false, msg: "Wrong Password" })
     }
+})
+
+app.get('/admin/checkedin', isAdmin, (req, res) => {
+    res.render('checkedin');
 })
 
 app.get('/auth/logout', (req, res) => {
@@ -82,3 +86,11 @@ app.get('/auth/logout', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 })
+
+function isAdmin(req, res, next) {
+    if (req.hasOwnProperty('cookies') && req.cookies.login != undefined && req.cookies.login == "verysecurelyloggedinandthisisarandomstringnow142138512433442") {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
