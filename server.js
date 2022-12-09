@@ -39,6 +39,7 @@ app.get('/pass/:id', async (req, res) => {
             })
         })
     });
+    
 })
 
 //make a endpoint for new people to register
