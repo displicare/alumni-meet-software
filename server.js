@@ -5,7 +5,7 @@ const csv = require('csvtojson')
 const ejs = require('ejs');
 var expressLayouts = require('express-ejs-layouts');
 var html_to_pdf = require('html-pdf-node');
-let options = { format: 'A5', landscape: true };
+let options = { format: 'A5', landscape: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] };
 
 //use ejs
 app.set('view engine', 'ejs');
