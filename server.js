@@ -15,6 +15,7 @@ app.use(cookieParser())
 //serve public
 app.use(express.static('public'));
 
+
 //use ejs
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
