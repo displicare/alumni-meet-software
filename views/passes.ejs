@@ -1,22 +1,57 @@
 <div class="pass-container">
     <br><br>
+    <input type="text" id="searchInput" class="search" placeholder="Search by name">
+    <br><br>
     <h1>Alumni Meet Cum Winter Carnival Passes</h1>
     <br><br>
-    <% for (i in passes){ %>
-    <div class="pass-each" onclick="passClick('<%= passes[i].Number %> ')">
-        <p class="name">&nbsp;&nbsp;&nbsp;<%= passes[i].Name %></p>
+    <div class="pass-container">
+        <% for (i in passes){ %>
+            <div class="pass-each" onclick="passClick('<%= passes[i].Number %> ')">
+                <p class="name">&nbsp;&nbsp;&nbsp;<%= passes[i].Name %>
+                </p>
+            </div>
+            <% } %>
     </div>
-    <% } %>
     <script>
         function passClick(id) {
             id = btoa(id)
             //open in new tab
             window.open('/pass/' + id, '_blank');
         }
+        document.getElementById('searchInput').addEventListener('input', function () {
+            var searchValue = this.value.toLowerCase();
+            var passNames = document.getElementsByClassName('name');
+            console.log(passNames);
+            for (var i = 0; i < passNames.length; i++) {
+                var passName = passNames[i].innerText.toLowerCase();
+                var passContainer = passNames[i].parentNode;
+
+                if (passName.includes(searchValue)) {
+                    passContainer.style.display = 'flex';
+                } else {
+                    passContainer.style.display = 'none';
+                }
+            }
+        });
+
     </script>
+
 </div>
 
 <style>
+    .search {
+        width: 40vw;
+        height: 3vw;
+        background-color: transparent;
+        color: #000;
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        font-size: 1.3vw;
+        font-weight: 500;
+        border-radius: 10px;
+        padding: 1.5vw;
+
+    }
+
     .name {
         font-size: 24px;
         font-weight: 500;
@@ -26,6 +61,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100vw;
     }
 
     .pass-each {
